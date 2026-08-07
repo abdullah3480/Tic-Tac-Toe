@@ -33,7 +33,7 @@ const GameBoard = (() => {
 
 
 function Cell(){
-    let value = 'X';
+    let value = '';
 
     let markCell = (mark) => {
         value = mark;
@@ -71,6 +71,8 @@ const GameController = (() => {
     let switchPlayer = (()=>{
         activePlayer = activePlayer === players[0] ? players[1] : players[0];
     })
+
+
 
     const getActivePlayer = ()=> activePlayer;
 
@@ -144,6 +146,7 @@ const GameController = (() => {
         return false;
     }
 
+
     function checkTie(){
         
         for(let i  = 0 ; i < 3; i++){
@@ -155,7 +158,7 @@ const GameController = (() => {
         return true;
     }
 
-    return{playRound,checkWin,checkTie,board : board}
+    return{playRound,checkWin,checkTie,board : board,getActivePlayer}
 
 });
 
@@ -163,15 +166,16 @@ const GameController = (() => {
 const ScreenController = (() =>{
 
     const game = GameController();
+    
     const boardDiv = document.querySelector('.board');
     const board = game.board;
+    const turnDiv = document.querySelector('.turn');
     
     function updateScreen(){
 
-        
-
         boardDiv.textContent = '';
-
+        turnDiv.textContent = `${game.getActivePlayer().name}'s turn`;
+        console.log('je')
     for( let i = 0; i < 3; i++){
         for(let j = 0; j < 3 ; j++){
             const cellDiv = document.createElement('div');
@@ -186,8 +190,22 @@ const ScreenController = (() =>{
         }
     }
 
+    if (game.checkWin(game.getActivePlayer().mark)) {
+        turnDiv.textContent = `${game.getActivePlayer().name} wins`
+    }
+
 }
 
+    function clickHandler(e){
+        let row = e.target.dataset.row;
+        let col = e.target.dataset.col;
+
+        game.playRound(row,col);
+        updateScreen();
+    }
+
+    boardDiv.addEventListener('click',clickHandler)
+updateScreen()
 return {updateScreen}
 
 })();
