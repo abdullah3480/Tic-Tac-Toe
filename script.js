@@ -175,7 +175,8 @@ const ScreenController = (() =>{
 
         boardDiv.textContent = '';
         turnDiv.textContent = `${game.getActivePlayer().name}'s turn`;
-        console.log('je')
+        
+        
     for( let i = 0; i < 3; i++){
         for(let j = 0; j < 3 ; j++){
             const cellDiv = document.createElement('div');
@@ -199,6 +200,8 @@ const ScreenController = (() =>{
     function clickHandler(e){
         let row = e.target.dataset.row;
         let col = e.target.dataset.col;
+
+        if(board[row][col].getValue() != '') return
 
         game.playRound(row,col);
         updateScreen();
