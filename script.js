@@ -17,13 +17,14 @@ const GameBoard = (() => {
     function displayBoard(){
         for(let i = 0 ; i < 3; i++){
             for (let j = 0; j < 3; j++){
-                console.log(board[i][j].Cell.getValue());
+                console.log(board[i][j].getValue());
             }
+            
         }
     }
 
     function markBoard(x,y, mark){
-        board[x][y].Cell.markCell(mark);
+        board[x][y].markCell(mark);
     }
 
     return {displayBoard,markBoard,getBoard};
@@ -33,7 +34,7 @@ const GameBoard = (() => {
 function Cell(){
     let value = ' ';
 
-    function markCell(mark){
+    let markCell = (mark) => {
         value = mark;
     }
 
@@ -46,6 +47,7 @@ function Cell(){
 
 const GameController = (() => {
 
+    let board = GameBoard.getBoard();
     let playerOne = "Player One";
     let playerTwo = "Player Two";
 
@@ -77,5 +79,56 @@ const GameController = (() => {
         
         
     }
+
+    const checkWin = (mark) =>{
+        let win = true;
+        for(let i = 0 ; i < 3; i ++){
+            for (let j = 0; j < 3; j++){
+                if(i == j && board[i][j].getValue() !== mark){
+                    win = false;
+                }
+            }
+        }
+        if(win) return win;
+
+        for(let i = 0 ; i < 3; i ++){
+            for (let j = 0; j < 3; j++){
+                if(i+j == 2 && board[i][j].getValue() !== mark){
+                    win = false;
+                }
+            }
+        }
+        if(win) return win;
+
+        win = true;
+         for(let i = 0 ; i < 3; i ++){
+            for (let j = 0; j < 3; j++){
+                if(board[i][j].getValue() !== mark){
+                    win = false;
+                }
+            }
+
+            if(win) return win;
+            win = true;
+        }
+        
+
+
+        
+         for(let i = 0 ; i < 3; i ++){
+            for (let j = 0; j < 3; j++){
+                if(board[j][i].getValue !== mark){
+                    win = false;
+                }
+            }
+
+            if(win) return win;
+            win = true;
+        }
+
+        return false;
+    }
+
+    return{playRound,checkWin}
 
 })();
