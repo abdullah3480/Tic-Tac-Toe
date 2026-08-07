@@ -19,6 +19,7 @@ const GameBoard = (() => {
             for (let j = 0; j < 3; j++){
                 console.log(board[i][j].getValue());
             }
+            console.log('\n')
             
         }
     }
@@ -60,6 +61,11 @@ const GameController = (() => {
         mark : 'O'
     }]
 
+    // players[0].getMark();
+    // players[1].getMark();
+
+    console.log(players[0].mark)
+    console.log(players[1].mark)
     let activePlayer = players[0];
 
     let switchPlayer = (()=>{
@@ -74,17 +80,26 @@ const GameController = (() => {
         console.log(`${getActivePlayer().name}'s turn.`);
     };
 
-    const playRound = () => {
 
-        
-        
+    const putMark = (x,y,mark)=>{
+        GameBoard.markBoard(x,y,mark);
     }
+    const playRound = (x,y) => {
+
+        putMark(x,y,activePlayer.mark);
+        checkTie();
+        checkWin(activePlayer.mark);
+        switchPlayer();
+
+
+    }
+
 
     const checkWin = (mark) =>{
         let win = true;
         for(let i = 0 ; i < 3; i ++){
             for (let j = 0; j < 3; j++){
-                if(i == j && board[i][j].getValue() !== mark){
+                if(i == j && board[i][j].getValue() != mark){
                     win = false;
                 }
             }
@@ -93,7 +108,7 @@ const GameController = (() => {
 
         for(let i = 0 ; i < 3; i ++){
             for (let j = 0; j < 3; j++){
-                if(i+j == 2 && board[i][j].getValue() !== mark){
+                if(i+j == 2 && board[i][j].getValue() != mark){
                     win = false;
                 }
             }
@@ -103,7 +118,7 @@ const GameController = (() => {
         win = true;
          for(let i = 0 ; i < 3; i ++){
             for (let j = 0; j < 3; j++){
-                if(board[i][j].getValue() !== mark){
+                if(board[i][j].getValue() != mark){
                     win = false;
                 }
             }
@@ -129,6 +144,22 @@ const GameController = (() => {
         return false;
     }
 
-    return{playRound,checkWin}
+    function checkTie(){
+        
+        for(let i  = 0 ; i < 3; i++){
+            for(let j = 0 ; j < 3; j++){
+                if(board[i][j].getValue() == ' ') return false;
+            }
+
+        }
+        return true;
+    }
+
+    return{playRound,checkWin,checkTie}
 
 })();
+
+
+const ScreenController = (() =>{
+
+})
