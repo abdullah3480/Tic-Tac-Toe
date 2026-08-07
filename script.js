@@ -33,7 +33,7 @@ const GameBoard = (() => {
 
 
 function Cell(){
-    let value = ' ';
+    let value = 'X';
 
     let markCell = (mark) => {
         value = mark;
@@ -155,11 +155,41 @@ const GameController = (() => {
         return true;
     }
 
-    return{playRound,checkWin,checkTie}
+    return{playRound,checkWin,checkTie,board : board}
 
-})();
+});
 
 
 const ScreenController = (() =>{
 
-})
+    const game = GameController();
+    const boardDiv = document.querySelector('.board');
+    const board = game.board;
+    
+    function updateScreen(){
+
+        
+
+        boardDiv.textContent = '';
+
+    for( let i = 0; i < 3; i++){
+        for(let j = 0; j < 3 ; j++){
+            const cellDiv = document.createElement('div');
+            cellDiv.classList.add('cell');
+
+            cellDiv.textContent = board[i][j].getValue();
+            
+            cellDiv.dataset.row = i;
+            cellDiv.dataset.col = j;
+            boardDiv.appendChild(cellDiv);
+
+        }
+    }
+
+}
+
+return {updateScreen}
+
+})();
+
+

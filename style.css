@@ -1,0 +1,24 @@
+.board{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    width: 20rem;
+    height: 20rem;
+
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+.cell{
+    height: 100%;
+    border: solid black 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+}
