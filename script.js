@@ -77,25 +77,38 @@ const GameController = (() => {
     const getActivePlayer = ()=> activePlayer;
 
 
-    const printNewRound = () => {
-        board.displayBoard();
-        console.log(`${getActivePlayer().name}'s turn.`);
-    };
+    
 
 
     const putMark = (x,y,mark)=>{
         GameBoard.markBoard(x,y,mark);
     }
+
+    let matchStatus;
     const playRound = (x,y) => {
 
+        if(matchStatus == undefined){
         putMark(x,y,activePlayer.mark);
-        checkTie();
-        checkWin(activePlayer.mark);
+
+        if(checkWin(activePlayer.mark)){
+            matchStatus = 'win'
+            return;
+        }
+
+        if(checkTie()){
+            matchStatus = 'tie'
+            return;
+        }
         switchPlayer();
 
-
+    }
     }
 
+    function getMatchStatus(){
+        return matchStatus;
+    }
+
+    
 
     const checkWin = (mark) =>{
         let win = true;
@@ -107,7 +120,7 @@ const GameController = (() => {
             }
         }
         if(win) return win;
-
+        win = true;
         for(let i = 0 ; i < 3; i ++){
             for (let j = 0; j < 3; j++){
                 if(i+j == 2 && board[i][j].getValue() != mark){
@@ -131,10 +144,10 @@ const GameController = (() => {
         
 
 
-        
+        win = true;
          for(let i = 0 ; i < 3; i ++){
             for (let j = 0; j < 3; j++){
-                if(board[j][i].getValue !== mark){
+                if(board[j][i].getValue() != mark){
                     win = false;
                 }
             }
@@ -151,7 +164,7 @@ const GameController = (() => {
         
         for(let i  = 0 ; i < 3; i++){
             for(let j = 0 ; j < 3; j++){
-                if(board[i][j].getValue() == ' ') return false;
+                if(board[i][j].getValue() == '') return false;
             }
 
         }
@@ -170,6 +183,8 @@ const ScreenController = (() =>{
     const boardDiv = document.querySelector('.board');
     const board = game.board;
     const turnDiv = document.querySelector('.turn');
+    const resultDiv = document.querySelector('.result');
+
     
     function updateScreen(){
 
@@ -191,10 +206,11 @@ const ScreenController = (() =>{
         }
     }
 
-    if (game.checkWin(game.getActivePlayer().mark)) {
-        turnDiv.textContent = `${game.getActivePlayer().name} wins`
+    if(game.getMatchStatus() == 'win'){
+        resultDiv.textContent = `${game.getActivePlayer().name} wins`
     }
 
+    
 }
 
     function clickHandler(e){
@@ -203,7 +219,7 @@ const ScreenController = (() =>{
 
         if(board[row][col].getValue() != '') return
 
-        game.playRound(row,col);
+        game.playRound(row,col) 
         updateScreen();
     }
 
