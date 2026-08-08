@@ -171,7 +171,7 @@ const GameController = (() => {
         return true;
     }
 
-    return{playRound,checkWin,checkTie,board : board,getActivePlayer}
+    return{playRound,checkWin,checkTie,board : board,getActivePlayer,getMatchStatus}
 
 });
 
@@ -210,6 +210,11 @@ const ScreenController = (() =>{
         resultDiv.textContent = `${game.getActivePlayer().name} wins`
     }
 
+    else if (game.getMatchStatus() == 'tie'){
+        resultDiv.textContent = 'It is a tie';
+    }
+
+    // else resultDiv.textContent = '';
     
 }
 
