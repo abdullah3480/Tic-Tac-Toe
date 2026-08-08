@@ -10,11 +10,7 @@ const GameBoard = (() => {
         
     }
 
-    function getBoard(){
-        return board;
-    }
-
-    function displayBoard(){
+    function clearBoard(){
         for(let i = 0 ; i < 3; i++){
             for (let j = 0; j < 3; j++){
                 console.log(board[i][j].getValue());
@@ -23,12 +19,25 @@ const GameBoard = (() => {
             
         }
     }
+    function getBoard(){
+        return board;
+    }
+
+    function displayBoard(){
+        for(let i = 0 ; i < 3; i++){
+            for (let j = 0; j < 3; j++){
+                board[i][j].clearCell();
+            }
+            
+            
+        }
+    }
 
     function markBoard(x,y, mark){
         board[x][y].markCell(mark);
     }
 
-    return {displayBoard,markBoard,getBoard};
+    return {displayBoard,markBoard,getBoard,clearBoard};
 })();
 
 
@@ -43,7 +52,11 @@ function Cell(){
         return value;
     }
 
-    return {markCell,getValue};
+    function clearCell(){
+        value = '';
+    }
+
+    return {markCell,getValue,clearCell};
 }
 
 const GameController = (() => {
@@ -54,15 +67,22 @@ const GameController = (() => {
 
     let players = [{
         name : playerOne,
-        mark : 'X'
+        mark : 'X',
+        setName : function(name){
+            if(name.lenght > 0)
+            this.playerName = name;
+        }
         
     },{
         name : playerTwo,
-        mark : 'O'
+        mark : 'O',
+        setName : function(name){
+            if(name.lenght > 0)
+            this.playerName = name;
+        }
+        
     }]
 
-    // players[0].getMark();
-    // players[1].getMark();
 
     console.log(players[0].mark)
     console.log(players[1].mark)
@@ -78,7 +98,9 @@ const GameController = (() => {
 
 
     
-
+    function setPlayerName(player,name){
+        players[player].setName(name);
+    }
 
     const putMark = (x,y,mark)=>{
         GameBoard.markBoard(x,y,mark);
@@ -171,7 +193,7 @@ const GameController = (() => {
         return true;
     }
 
-    return{playRound,checkWin,checkTie,board : board,getActivePlayer,getMatchStatus}
+    return{playRound,checkWin,checkTie,getActivePlayer,getMatchStatus,setPlayerName}
 
 });
 
@@ -181,10 +203,19 @@ const ScreenController = (() =>{
     const game = GameController();
     
     const boardDiv = document.querySelector('.board');
-    const board = game.board;
+    const board = GameBoard.getBoard();
     const turnDiv = document.querySelector('.turn');
     const resultDiv = document.querySelector('.result');
-
+    const submit = document.querySelector('#submit');
+    function setPlayerName(){
+                
+            const playerOneName = document.forms[0].playerOne.value;
+            const playerTwoName = document.forms[0].playerTwo.value;
+            game.setPlayerName(0,playerOneName);
+            game.setPlayerName(1,playerTwoName);
+    }
+    
+    submit.addEventListener('click',setPlayerName);
     
     function updateScreen(){
 
@@ -207,7 +238,8 @@ const ScreenController = (() =>{
     }
 
     if(game.getMatchStatus() == 'win'){
-        resultDiv.textContent = `${game.getActivePlayer().name} wins`
+        resultDiv.textContent = `${game.getActivePlayer().name} wins`;
+
     }
 
     else if (game.getMatchStatus() == 'tie'){
