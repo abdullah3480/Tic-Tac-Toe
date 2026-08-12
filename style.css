@@ -10,11 +10,16 @@
     padding: 10px;
     padding-right: 0px;
     border-radius: 20px;
-    background: linear-gradient(132deg, rgb(2, 28, 122) 0.00%, rgb(36, 83, 255) 100.00%);
+    background: linear-gradient(132deg, #1e2a78 0.00%, #2b3fa0 100.00%);
 
+}
+body{
+    padding: 0;
+    margin: 0;
 }
 
 .container{
+    
     justify-content: center;
     align-items: center;
     height: 100vh;
@@ -22,10 +27,12 @@
     flex-direction: column;
     gap: 20px;
     display: flex;
+background: linear-gradient(132deg, rgb(34, 181, 254) 0.00%, rgb(255, 186, 214) 100.00%);
    
 }
 .cell{
-background: linear-gradient(132deg, rgb(0, 103, 154) 0.00%, rgb(0, 173, 239) 100.00%);
+    color: #ff6b81;
+    background: linear-gradient(132deg, #5ac8e8 0.00%,#7fd4ee 100.00%);
     height: 90%;
     width: 90%;
     border: solid black 1px;
@@ -37,13 +44,12 @@ background: linear-gradient(132deg, rgb(0, 103, 154) 0.00%, rgb(0, 173, 239) 100
 }
 
 
-.turn{
-    border-radius: 30px;
-}
+
 .cell:hover{
 background: linear-gradient(132deg, rgb(227, 244, 253) 0.00%, rgb(170, 209, 226) 100.00%);
 }
-.turn{
+.turn, .newGame, .result{
+    border-radius: 30px;
     border: solid black 1px;
     padding: 1rem;
     width: 17.9rem;
@@ -59,7 +65,7 @@ background: linear-gradient(132deg, rgb(227, 244, 253) 0.00%, rgb(170, 209, 226)
     justify-self: center;
     align-self: center;
     padding: 3rem;
-    top: 100px;
+    top: 128px;
     /* display: none; */
     position: absolute; 
    
@@ -98,6 +104,7 @@ background: linear-gradient(132deg, rgb(251, 251, 255) 0.00%, rgb(215, 223, 252)
     font-weight: 800;
     
 }
+
 
 
 

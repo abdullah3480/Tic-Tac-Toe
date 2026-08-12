@@ -246,6 +246,9 @@ const ScreenController = (() =>{
             cellDiv.dataset.col = j;
             boardDiv.appendChild(cellDiv);
 
+            if(cellDiv.textContent == 'O')
+                cellDiv.style.color = '#1e2a78';
+
         }
     }
 
