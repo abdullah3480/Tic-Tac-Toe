@@ -13,9 +13,8 @@ const GameBoard = (() => {
     function clearBoard(){
         for(let i = 0 ; i < 3; i++){
             for (let j = 0; j < 3; j++){
-                console.log(board[i][j].getValue());
+                board[i][j].clearCell();
             }
-            console.log('\n')
             
         }
     }
@@ -85,8 +84,8 @@ const GameController = (() => {
     }]
 
 
-    console.log(players[0].mark)
-    console.log(players[1].mark)
+    // console.log(players[0].mark)
+    // console.log(players[1].mark)
     let activePlayer = players[0];
 
     let switchPlayer = (()=>{
@@ -131,6 +130,9 @@ const GameController = (() => {
         return matchStatus;
     }
 
+    function resetMatchStatus(){
+        matchStatus = undefined;
+    }
     
 
     const checkWin = (mark) =>{
@@ -194,7 +196,7 @@ const GameController = (() => {
         return true;
     }
 
-    return{playRound,checkWin,checkTie,getActivePlayer,getMatchStatus,setPlayerName}
+    return{playRound,checkWin,checkTie,getActivePlayer,getMatchStatus,setPlayerName,resetMatchStatus}
 
 });
 
@@ -208,11 +210,25 @@ const ScreenController = (() =>{
     const turnDiv = document.querySelector('.turn');
     const resultDiv = document.querySelector('.result');
     const submit = document.querySelector('#submit');
-   
+    const newGame = document.querySelector('.newGame')
     let inputDiv = document.querySelector('.inputDiv')
 
-    
+    newGame.addEventListener('click',(event) => {
+        displayForm()
+        submit.addEventListener('click',takeInput)
+        resetGame();
+        updateScreen();
+    });
+
     submit.addEventListener('click',takeInput)
+
+    function resetGame(){
+        GameBoard.clearBoard();
+        game.setPlayerName(0,'Player One');
+        game.setPlayerName(1,'Player Two');
+        game.resetMatchStatus();
+
+    }
     function updateScreen(){
 
         boardDiv.textContent = '';
@@ -242,32 +258,35 @@ const ScreenController = (() =>{
         resultDiv.textContent = 'It is a tie';
     }
 
-    // else resultDiv.textContent = '';
+    else resultDiv.textContent = '';
     
 }
     function takeInput(event){
-        inputDiv.style.display = 'flex'
+                inputDiv.style.display = 'block'
+
         event.preventDefault()
         let playerOneName = document.forms[0].playerOne.value;
         let playerTwoName = document.forms[0].playerTwo.value;
-      
-        
         game.setPlayerName(0,playerOneName);
         game.setPlayerName(1,playerTwoName);
-
         document.forms[0].playerOne.value = '';
         document.forms[0].playerTwo.value = '';
-        
-        inputDiv.style.display = 'none';
-
+inputDiv.style.display = 'none';
 
 
         
     }
 
-    
+    function removeForm(){
+        inputDiv.style.display = 'none';
 
+    }
 
+    function displayForm(){
+        inputDiv.style.display = 'block'
+
+    }
+   
 
     function clickHandler(e){
         let row = e.target.dataset.row;
@@ -279,6 +298,7 @@ const ScreenController = (() =>{
         updateScreen();
     }
 
+    boardDiv.addEventListener('click',clickHandler);
     updateScreen()
     return {updateScreen}
 
