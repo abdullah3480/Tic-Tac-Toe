@@ -60,12 +60,12 @@ background: linear-gradient(132deg, rgb(227, 244, 253) 0.00%, rgb(170, 209, 226)
 
 .inputDiv{
     width: 20rem;
-    height: 25rem;
+    height: 30rem;
     border-radius: 30px;
     justify-self: center;
     align-self: center;
     padding: 3rem;
-    top: 128px;
+    top: 120px;
     /* display: none; */
     position: absolute; 
    
