@@ -69,16 +69,17 @@ const GameController = (() => {
         name : playerOne,
         mark : 'X',
         setName : function(name){
-            if(name.lenght > 0)
-            this.playerName = name;
+           if(name != '')
+            this.name = name;
         }
         
     },{
         name : playerTwo,
         mark : 'O',
         setName : function(name){
-            if(name.lenght > 0)
-            this.playerName = name;
+             if(name != '')
+         
+            this.name = name;
         }
         
     }]
@@ -200,22 +201,18 @@ const GameController = (() => {
 
 const ScreenController = (() =>{
 
-    const game = GameController();
     
+    const game = GameController();
     const boardDiv = document.querySelector('.board');
     const board = GameBoard.getBoard();
     const turnDiv = document.querySelector('.turn');
     const resultDiv = document.querySelector('.result');
     const submit = document.querySelector('#submit');
-    function setPlayerName(){
-                
-            const playerOneName = document.forms[0].playerOne.value;
-            const playerTwoName = document.forms[0].playerTwo.value;
-            game.setPlayerName(0,playerOneName);
-            game.setPlayerName(1,playerTwoName);
-    }
+   
+    let inputDiv = document.querySelector('.inputDiv')
+
     
-    
+    submit.addEventListener('click',takeInput)
     function updateScreen(){
 
         boardDiv.textContent = '';
@@ -248,6 +245,29 @@ const ScreenController = (() =>{
     // else resultDiv.textContent = '';
     
 }
+    function takeInput(event){
+        inputDiv.style.display = 'flex'
+        event.preventDefault()
+        let playerOneName = document.forms[0].playerOne.value;
+        let playerTwoName = document.forms[0].playerTwo.value;
+      
+        
+        game.setPlayerName(0,playerOneName);
+        game.setPlayerName(1,playerTwoName);
+
+        document.forms[0].playerOne.value = '';
+        document.forms[0].playerTwo.value = '';
+        
+        inputDiv.style.display = 'none';
+
+
+
+        
+    }
+
+    
+
+
 
     function clickHandler(e){
         let row = e.target.dataset.row;
@@ -259,9 +279,8 @@ const ScreenController = (() =>{
         updateScreen();
     }
 
-    boardDiv.addEventListener('click',clickHandler)
-updateScreen()
-return {updateScreen}
+    updateScreen()
+    return {updateScreen}
 
 })();
 

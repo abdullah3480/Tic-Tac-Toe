@@ -27,7 +27,9 @@
     align-items: center;
     font-size: 50px;
 }
-
+.cell:hover{
+    background-color: lightblue;
+}
 .turn{
     border: solid black 1px;
     padding: 1rem;
@@ -37,7 +39,7 @@
     display: flex;
 }
 
-.input{
+.inputDiv{
     width: 20rem;
     height: 25rem;
     border-radius: 30px;
@@ -47,7 +49,7 @@
     top: 100px;
     /* display: none; */
     position: absolute; 
-    display: none;
+    
     
 }
 
@@ -81,4 +83,6 @@ background: linear-gradient(132deg, rgb(251, 251, 255) 0.00%, rgb(215, 223, 252)
     font-weight: 800;
     
 }
+
+
 
