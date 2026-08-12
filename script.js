@@ -215,7 +215,6 @@ const ScreenController = (() =>{
             game.setPlayerName(1,playerTwoName);
     }
     
-    submit.addEventListener('click',setPlayerName);
     
     function updateScreen(){
 

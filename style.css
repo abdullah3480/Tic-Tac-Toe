@@ -17,6 +17,7 @@
     flex-direction: column;
     gap: 10px;
     display: flex;
+   
 }
 .cell{
     height: 100%;
@@ -35,3 +36,45 @@
     align-items: center;
     display: flex;
 }
+
+.input{
+    width: 20rem;
+    height: 25rem;
+    border-radius: 30px;
+    justify-self: center;
+    align-self: center;
+    padding: 3rem;
+    top: 100px;
+    /* display: none; */
+    position: absolute; 
+    
+}
+
+.inputForm{
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 3rem;
+    gap: 10px;
+    border: rgb(136, 36, 36) dotted;
+    background: linear-gradient(132deg, rgb(251, 165, 116) 0.00%, rgb(216, 245, 251) 100.00%);
+    border-radius: 25px;
+    height: 100%;
+    width: 100%;
+    align-self: center;
+    justify-self: center;
+}
+
+#playerOne, #playerTwo{
+    border-radius: 10px;
+    border-style: none;
+}
+
+#submit{
+    border-radius: 30px;
+    border-style: hidden;
+    width: 50%;
+    height: 70%;
+    justify-self: center;
+background: linear-gradient(132deg, rgb(34, 181, 254) 0.00%, rgb(255, 186, 214) 100.00%);
+}
+
