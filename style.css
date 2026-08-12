@@ -47,6 +47,7 @@
     top: 100px;
     /* display: none; */
     position: absolute; 
+    display: none;
     
 }
 
@@ -55,8 +56,8 @@
     grid-template-columns: 1fr;
     padding: 3rem;
     gap: 10px;
-    border: rgb(136, 36, 36) dotted;
-    background: linear-gradient(132deg, rgb(251, 165, 116) 0.00%, rgb(216, 245, 251) 100.00%);
+    /* border: rgb(136, 36, 36) dotted; */
+    background: linear-gradient(132deg, rgb(59, 55, 106) 0.00%, rgb(0, 143, 186) 50.00%, rgb(255, 149, 213) 100.00%);
     border-radius: 25px;
     height: 100%;
     width: 100%;
@@ -75,6 +76,9 @@
     width: 50%;
     height: 70%;
     justify-self: center;
-background: linear-gradient(132deg, rgb(34, 181, 254) 0.00%, rgb(255, 186, 214) 100.00%);
+background: linear-gradient(132deg, rgb(251, 251, 255) 0.00%, rgb(215, 223, 252) 100.00%);    
+    font-size: medium;
+    font-weight: 800;
+    
 }
 
